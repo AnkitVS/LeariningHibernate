@@ -1,9 +1,11 @@
 package org.learn.LearningHibernate;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="LearningHibernateEntity")
+@Table(name="StudentEntity")
 public class StudentEntity {
 
 	private String name;
@@ -13,10 +15,18 @@ public class StudentEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int roll_no;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="subjectId")
+	private List<SubjectEntity> subject;
 	
-	public StudentEntity() {
-		super();
+	
+	public List<SubjectEntity> getSubject() {
+		return subject;
 	}
+	public void setSubject(List<SubjectEntity> subject) {
+		this.subject = subject;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -35,15 +45,21 @@ public class StudentEntity {
 	public void setRoll_no(int roll_no) {
 		this.roll_no = roll_no;
 	}
-	public StudentEntity(String name, int standard, int roll_no) {
+	public StudentEntity(String name, int standard, int roll_no, List<SubjectEntity> subject) {
 		super();
 		this.name = name;
 		this.standard = standard;
 		this.roll_no = roll_no;
+		this.subject = subject;
+	}
+	public StudentEntity() {
+		super();
 	}
 	@Override
 	public String toString() {
-		return "LearningHibernateEntity [name=" + name + ", standard=" + standard + ", roll_no=" + roll_no + "]";
+		return "StudentEntity [name=" + name + ", standard=" + standard + ", roll_no=" + roll_no + ", subject="
+				+ subject + "]";
 	}
+
 	
 }

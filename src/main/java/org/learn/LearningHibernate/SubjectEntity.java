@@ -1,9 +1,11 @@
 package org.learn.LearningHibernate;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="subject")
+@Table(name="subjectentity")
 public class SubjectEntity {
 	
 	@Id
@@ -12,6 +14,16 @@ public class SubjectEntity {
 	
 	@Column(name="subjectName")
 	private String name;
+	
+	@OneToMany(mappedBy="subject")
+	private List<FacultyEntity>faculty;
+	
+	public List<FacultyEntity> getFaculty() {
+		return faculty;
+	}
+	public void setFaculty(List<FacultyEntity> faculty) {
+		this.faculty = faculty;
+	}
 	public int getSubjectId() {
 		return subjectId;
 	}
